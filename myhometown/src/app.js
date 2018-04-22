@@ -1,33 +1,44 @@
-import React,{Component} from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
-// import {Provider,store} from 'react-redux'
+import {createStore,applyMiddleware,compose} from 'redux'
+import {Provider} from 'react-redux'
+import thunk from 'redux-thunk'
 import {BrowserRouter,Switch,Route} from 'react-router-dom'
 import Header from './component/header/header'
+import Footer from './component/footer/footer'
+import Auth from './container/auth/auth'
+import Register from './container/register/register'
+import Login from './container/login/login'
+import reducers from './container/reducer'
 
-function Maincontent(){
-    return <h1>这是页面主体</h1>
-}
-// function Header(){
-//     return <h1>这是页面头部</h1>
-// }
-function Footer(){
-    return <h1>这是页面底部</h1>
-}
+import Maincontent from './container/main/maicontent'
+
+import './config'
+
+let store = createStore(reducers,compose(
+    applyMiddleware(thunk),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+));
+
 ReactDOM.render(
-    // <Provider>
+    <Provider store={store}>
         <BrowserRouter>
             <div>
+                <Auth/>
                 <Route path="/:location" component={Header}></Route>
+                
                 <Switch>
                     
-                    <Route path="/:location" component={Maincontent}></Route>
-                    
+                    <Route path="/" exact component={Maincontent}></Route>
+                    <Route path="/register" exact component={Register}></Route>
+                    <Route path="/login" exact component={Login}></Route>
+                   
                     
                 
                 </Switch>
                 <Route path="/:location" component={Footer}></Route>
             </div>
         </BrowserRouter>
-    // </Provider>
+     </Provider>
     ,document.getElementById('root')
 )
