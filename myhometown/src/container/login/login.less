@@ -23,3 +23,46 @@
         }
     }
 }
+
+.loginSucc{
+    display: none;
+    margin-top:10px;
+}
+@-webkit-keyframes loginSucc
+{
+    0%   {opacity: 1;}
+    25%  {opacity: 0.8;}
+    50%  {opacity: 0.5;}
+    100% {opacity: 0;}
+}
+@keyframes loginSucc
+{
+    0%   {opacity: 1;}
+    25%  {opacity: 0.8;}
+    50%  {opacity: 0.5;}
+    100% {opacity: 0;}
+}
+.loginSucc-animal{
+    
+    margin-top:10px;
+    // -webkit-animation:registerSucc 3s linear 0 1 normal running forwards;
+    -webkit-animation-name: loginSucc;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-delay: 0;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-direction: normal;
+    -webkit-animation-play-state: running;
+    -webkit-animation-fill-mode:forwards;
+
+    // animation:registerSucc 3s linear 0 1 normal running forwards;
+    animation-name: registerSucc;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+   animation-delay: 0;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+   animation-play-state: running;
+    animation-fill-mode:forwards;
+    
+}

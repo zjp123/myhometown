@@ -1,7 +1,11 @@
 
 import React from 'react'
-import {Layout, Form, Icon, Input, Button} from 'antd'
+import {Layout, Form, Icon, Input, Button,Alert} from 'antd'
 import Showtechan from '../../component/showTechan/showtechan'
+import {connect} from 'react-redux'
+import {login} from '../redux/user.redux'
+
+
 import './login.less'
 
 
@@ -11,21 +15,42 @@ class LoginForm extends React.Component {
   constructor(props){
       super(props)
       this.register = this.register.bind(this)
+      this.state = {
+        logClick:false
+      }
+      
   }
+  componentDidUpdate(){
+    const {isOnLine} = this.props.state;
+    isOnLine&&this.props.history.push('/')
+  }
+  // componentWillReceiveProps(){
+  //   this.setState({
+  //     logClick:true
+  //   });
+  // }
   register(){
       
     this.props.history.push('/register');
   }
   handleSubmit = (e) => {
     e.preventDefault();
+    
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        this.props.login(values) 
+        return ;
+      }else{
+        return ;
       }
     });
   }
   render() {
     const { getFieldDecorator } = this.props.form;
+    const {msg,nowTime} = this.props.state;
+    let logClick = this.state.logClick;
+    console.log(msg)
+    
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
         <FormItem>
@@ -36,7 +61,7 @@ class LoginForm extends React.Component {
           )}
         </FormItem>
         <FormItem>
-          {getFieldDecorator('password', {
+          {getFieldDecorator('pwd', {
             rules: [{ required: true, message: 'Please input your Password!' }],
           })(
             <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" refs="pwd" placeholder="密码" />
@@ -50,6 +75,7 @@ class LoginForm extends React.Component {
           <Button type="primary"  onClick={this.register} className="login-form-button">
             注册
           </Button>
+          {/* <Alert className={((msg!==undefined&&logClick)?'loginSucc-animal':'loginSucc')} key={nowTime}  message={msg} type="success" /> */}
 
         </FormItem>
       </Form>
@@ -72,7 +98,7 @@ class Login extends React.Component{
                     <Showtechan/>          
                 </Layout>
                 <Layout className="layout-right" >
-                        <WrapLoginForm history={this.props.history}/>
+                        <WrapLoginForm history={this.props.history} login={this.props.login} state={this.props.user}/>
                 </Layout>
                 
             </div>
@@ -81,4 +107,6 @@ class Login extends React.Component{
 }
 
 
-export default Login
+const propsToState = (state=>state)
+const propsTodispatch = {login}
+export default connect(propsToState,propsTodispatch)(Login)

@@ -7,6 +7,9 @@ const Router = require('./userser')
 
 const cookieParse = require('cookie-parser')
 const bodyParse = require('body-parser')
+
+app.use(cookieParse());
+app.use(bodyParse.json());
 app.use('/user',Router)
 
 
