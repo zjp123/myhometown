@@ -43,11 +43,14 @@ class LoginForm extends React.Component {
     //     console.log(this.state)
         
     // }
-    // componentWillReceiveProps(){
-    //     this.setState({
-    //         regclick:true
-    //     });
-    // }
+    componentWillReceiveProps(){
+        this.setState({
+            regclick:true
+        });
+    }
+  shouldComponentUpdate(nextProps, nextState){
+    return true;
+  }
   handleSubmit = (e) => {
     e.preventDefault();
 
@@ -74,6 +77,7 @@ class LoginForm extends React.Component {
      
     const { getFieldDecorator } = this.props.form;
     const {msg,nowTime} = this.props.state;
+   
     let regclick = this.state.regclick;
     console.log(msg)
     return (
@@ -120,7 +124,7 @@ class LoginForm extends React.Component {
           {/* <Button type="primary" onClick={this.login} style={{marginTop:'10px'}} className="login-form-button">
             登录
           </Button> */}
-          {/* <Alert className={((msg!==undefined&&regclick)?'registerSucc-animal':'registerSucc')} key={nowTime}  message={msg} type="success" /> */}
+          <Alert className={((msg!==undefined&&regclick)?'registerSucc-animal':'registerSucc')} key={nowTime}  message={msg} type="success" />
         </FormItem>
       </Form>
     );

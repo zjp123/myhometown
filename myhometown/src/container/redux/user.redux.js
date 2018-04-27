@@ -12,6 +12,7 @@ const initState = {
     userName:'',
     avatar:'',
     isOnLine:false,
+   
     
 }
 
@@ -23,7 +24,7 @@ export function user(state = initState,action){
         case REGISTERERR:
              return {...state,isLogin:false,...action.payload,nowTime:new Date().getTime()}
         case LOGINSUCC:
-             return {...state,isLogin:true,isOnLine:true,...action.payload,nowTime:new Date().getTime()}
+             return {...state,isLogin:true,isOnLine:true,...action.payload,redurl:'/',nowTime:new Date().getTime()}
         case LOGINERR:
              return {...state,isLogin:false,isOnLine:false,...action.payload,nowTime:new Date().getTime()}
         case LOGOOUT:

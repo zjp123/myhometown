@@ -1,12 +1,20 @@
 import React from 'react'
-import {Redirect,withRouter} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
+import browserCookie from 'browser-cookies'
+
 import axios from 'axios'
 
 
 class Auth extends React.Component{
 
    componentDidMount(){
+    
+    const userid = browserCookie.get('userid');
+    if(userid){
+        this.props.history.push('/')
+        return ;
+    }
     const pathname = this.props.location.pathname;
     if(pathname==='/login'){
         return true;
@@ -26,6 +34,7 @@ class Auth extends React.Component{
       });
    }
     render(){
+       
         // const login = this.props.user.isLogin;
         // const pathname = this.props.location.pathname;
     

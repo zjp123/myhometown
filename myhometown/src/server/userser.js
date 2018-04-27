@@ -35,6 +35,8 @@ Router.post('/register', function(req, res, next) {
             }
             const {user,_id} = d;
             res.cookie('userid',_id);
+            res.cookie('usernae',userName);
+            
             if(d){
                 return res.json({code:200,data:{userName:user,_id,msg:'注册成功'}});
                 
@@ -77,6 +79,8 @@ Router.post('/login', function(req, res) {
             console.log(doc);
             const {_id,user} =  doc;
             res.cookie('userid',_id);//登陆后更新cookie
+            res.cookie('avatar','moren-ava.jpg');
+            res.cookie('usernae',userName);
             
             return res.json({code:200,data:{userName:user,msg:'登录成功',avatar:'moren-ava.jpg'}});
             

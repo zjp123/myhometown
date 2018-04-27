@@ -17,18 +17,27 @@ class LoginForm extends React.Component {
       this.register = this.register.bind(this)
       this.state = {
         logClick:false
-      }
+    }
+     
       
+  }
+  componentWillReceiveProps(next){
+    this.setState({
+        regclick:true
+    });
+   
   }
   componentDidUpdate(){
     const {isOnLine} = this.props.state;
-    isOnLine&&this.props.history.push('/')
+    
+    if(isOnLine){
+      console.log( this.props.history)
+      
+      this.props.history.push('/');
+    
+    }
   }
-  // componentWillReceiveProps(){
-  //   this.setState({
-  //     logClick:true
-  //   });
-  // }
+ 
   register(){
       
     this.props.history.push('/register');
@@ -39,7 +48,7 @@ class LoginForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.props.login(values) 
-        return ;
+        
       }else{
         return ;
       }
@@ -49,7 +58,7 @@ class LoginForm extends React.Component {
     const { getFieldDecorator } = this.props.form;
     const {msg,nowTime} = this.props.state;
     let logClick = this.state.logClick;
-    console.log(msg)
+    // console.log(msg)
     
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
@@ -75,7 +84,7 @@ class LoginForm extends React.Component {
           <Button type="primary"  onClick={this.register} className="login-form-button">
             注册
           </Button>
-          {/* <Alert className={((msg!==undefined&&logClick)?'loginSucc-animal':'loginSucc')} key={nowTime}  message={msg} type="success" /> */}
+          <Alert className={((msg!==undefined&&logClick)?'loginSucc-animal':'loginSucc')} key={nowTime}  message={msg} type="success" />
 
         </FormItem>
       </Form>
@@ -98,7 +107,7 @@ class Login extends React.Component{
                     <Showtechan/>          
                 </Layout>
                 <Layout className="layout-right" >
-                        <WrapLoginForm history={this.props.history} login={this.props.login} state={this.props.user}/>
+                        <WrapLoginForm history={this.props.history}   login={this.props.login} state={this.props.user}/>
                 </Layout>
                 
             </div>
